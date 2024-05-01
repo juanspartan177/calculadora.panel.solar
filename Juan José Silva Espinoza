@@ -1,0 +1,29 @@
+function calcularPanelesSolares(a, b, x, y) {
+    let maxPaneles = 0;
+    let orientacionOptima = '';
+
+    for (let i = 0; i < 2; i++) {
+        let filas = Math.floor(x / a);
+        let columnas = Math.floor(y / b);
+        const numPaneles = filas * columnas;
+
+        if (numPaneles > maxPaneles) {
+            maxPaneles = numPaneles;
+            orientacionOptima = i === 0 ? 'horizontal' : 'vertical';
+        }
+
+        // Intercambiamos las dimensiones del panel para la siguiente iteración
+        [a, b] = [b, a];
+    }
+
+    return { maxPaneles, orientacionOptima };
+}
+
+const anchoPanel = 1.5; // Ancho del panel solar en metros
+const altoPanel = 2; // Alto del panel solar en metros
+const anchoTecho = 6.7; // Ancho del techo en metros
+const altoTecho = 4; // Alto del techo en metros
+
+const resultado = calcularPanelesSolares(anchoPanel, altoPanel, anchoTecho, altoTecho);
+console.log(`Puedes colocar un máximo de ${resultado.maxPaneles} paneles solares en el techo.`);
+console.log(`La orientación óptima de los paneles es ${resultado.orientacionOptima}.`);
